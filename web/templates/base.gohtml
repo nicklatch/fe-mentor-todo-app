@@ -14,46 +14,46 @@
     </head>
     <body>
     <header>
-        <h1>TODO</h1><span><img src="/assets/images/icon-moon.svg" alt="A moon icon signifying dark mode"/></span>
+        <h1>TODO</h1><span><img src="/assets/images/icon-sun.svg" alt="A moon icon signifying dark mode"/></span>
     </header>
     <main>
-        <div class="table-card">
-            <span class="table-input">
-                <input class="cb" type="checkbox">
-                <input class="cont" type="text" placeholder="Create new todo..."/>
+        <div class="todo-list-container">
+            <span class="todo-input-container">
+                <input type="checkbox">
+                <input type="text" placeholder="Create new todo..."/>
             </span>
-            <table>
-                <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                </tbody>
-            </table>
-            {{/*           All*/}}
-            {{/*        Active*/}}
-            {{/*        Completed*/}}
-
-            {{/*        Clear Completed*/}}
-
-            {{/*        Drag and drop to reorder list*/}}
-            {{/*        <!-- Add dynamic number --> items left*/}}
+            <ul>
+                <li><input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li><input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li><input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li><input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li><input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li><input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li id="final-row">
+                    <span>[n] items left</span>
+                    <span>
+                        <button type="button">All</button>
+                        <button type="button">Active</button>
+                        <button type="button">Completed</button>
+                    </span>
+                    <span><button type="button">Clear Completed</button></span>
+                </li>
+            </ul>
+        </div>
+        <div class="last-p">
+            <p>Drag and drop to reorder list</p>
         </div>
     </main>
     <footer>
