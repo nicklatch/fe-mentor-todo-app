@@ -1,12 +1,25 @@
+
 :root {
     font-size: 18px;
     font-family: "Josefin Sans", system-ui, sans-serif;
     font-optical-sizing: auto;
+    color: white;
     --primary-bright-blue: hsl(220, 98%, 61%);
     --check-background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+    --dark-bg-blue: hsl(235, 21%, 11%);
+    --dark-desaturated-blue: hsl(235, 24%, 19%);
+    --dark-grayish-blue: hsl(234, 11%, 52%);
+    --very-dark-grayish-blue: hsl(233, 14%, 35%);
+    --very-darker-grayish-blue: hsl(237, 14%, 26%);
+    --light-grayish-blue: hsl(234, 39%, 85%);
+    --fw-normal: 400;
+    --fw-heavy: 700;
 }
 
 body {
+    background: url("/assets/images/bg-desktop-dark.jpg"), var(--dark-bg-blue);
+    background-repeat: no-repeat, no-repeat;
+    background-size: contain;
     height: 100vh;
     max-width: 50vw;
     display: grid;
@@ -20,6 +33,7 @@ header {
     justify-content: space-between;
     align-items: center;
     height: auto;
+    padding-top: 2rem;
 }
 
 main {
@@ -28,4 +42,54 @@ main {
 
 footer {
     text-align: center;
+}
+
+h1 {
+    font-size: 42px;
+    letter-spacing: .75ch;
+    font-weight: var(--fw-heavy);
+}
+
+table {
+    background-color: var(--dark-desaturated-blue);
+    height: auto;
+    width: 100%;
+}
+
+tr, .table-input {
+    font-size: 2rem;
+    border-radius: 4px;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid white;
+}
+
+td > input {
+    width: min-content;
+}
+
+.table-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 2rem;
+    border-radius: 4px;
+}
+
+.table-input {
+    background: var(--dark-desaturated-blue);
+    border: none;
+    border-radius: 4px;
+    padding: 1rem;
+    color: white;
+    display: flex;
+}
+
+.cont {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding-left: 2rem;
 }
