@@ -4,7 +4,7 @@ sql:
     queries: "database/query/"
     schema: "database/migration/"
     database:
-      uri: postgres://postgres.[username suffix]:[pw]@aws-0-us-east-1.pooler.supabase.com:5432/postgres
+      uri: postgres://postgres.jjwpoydnnjemdnsnkcfb:6kFJyF35Id8c9M2a@aws-0-us-east-1.pooler.supabase.com:5432/postgres
     gen:
       go:
         package: "database"
