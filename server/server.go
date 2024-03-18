@@ -14,6 +14,8 @@ import (
 
 var files = []string{
 	"web/templates/base.gohtml",
+	"web/templates/todo-list.gohtml",
+	"web/templates/todo-item.gohtml",
 }
 
 type Server struct {

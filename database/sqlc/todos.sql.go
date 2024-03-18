@@ -10,23 +10,23 @@ import (
 )
 
 const createTodo = `-- name: CreateTodo :one
-INSERT INTO todos (task, status)
+INSERT INTO todos (task, completed)
 VALUES ($1, $2)
-RETURNING id, task, status, created_at, updated_at
+RETURNING id, task, completed, created_at, updated_at
 `
 
 type CreateTodoParams struct {
-	Task   string `json:"task"`
-	Status Status `json:"status"`
+	Task      string `json:"task"`
+	Completed bool   `json:"completed"`
 }
 
 func (q *Queries) CreateTodo(ctx context.Context, arg CreateTodoParams) (Todo, error) {
-	row := q.db.QueryRow(ctx, createTodo, arg.Task, arg.Status)
+	row := q.db.QueryRow(ctx, createTodo, arg.Task, arg.Completed)
 	var i Todo
 	err := row.Scan(
 		&i.ID,
 		&i.Task,
-		&i.Status,
+		&i.Completed,
 		&i.CreatedAt,
 		&i.UpdatedAt,
 	)
@@ -34,8 +34,9 @@ func (q *Queries) CreateTodo(ctx context.Context, arg CreateTodoParams) (Todo, e
 }
 
 const deleteCompletedTodos = `-- name: DeleteCompletedTodos :exec
-DELETE FROM todos
-WHERE status = 'Completed'
+DELETE
+FROM todos
+WHERE completed = true
 `
 
 func (q *Queries) DeleteCompletedTodos(ctx context.Context) error {
@@ -43,9 +44,21 @@ func (q *Queries) DeleteCompletedTodos(ctx context.Context) error {
 	return err
 }
 
+const deleteOneTodo = `-- name: DeleteOneTodo :exec
+DELETE FROM todos
+WHERE id = $1
+`
+
+func (q *Queries) DeleteOneTodo(ctx context.Context, id int32) error {
+	_, err := q.db.Exec(ctx, deleteOneTodo, id)
+	return err
+}
+
 const getAllActiveTodos = `-- name: GetAllActiveTodos :many
-SELECT id, task, status, created_at, updated_at FROM todos
-WHERE status = 'Active'
+SELECT id, task, completed, created_at, updated_at
+FROM todos
+WHERE completed = false
+ORDER BY id
 `
 
 func (q *Queries) GetAllActiveTodos(ctx context.Context) ([]Todo, error) {
@@ -60,7 +73,7 @@ func (q *Queries) GetAllActiveTodos(ctx context.Context) ([]Todo, error) {
 		if err := rows.Scan(
 			&i.ID,
 			&i.Task,
-			&i.Status,
+			&i.Completed,
 			&i.CreatedAt,
 			&i.UpdatedAt,
 		); err != nil {
@@ -75,8 +88,10 @@ func (q *Queries) GetAllActiveTodos(ctx context.Context) ([]Todo, error) {
 }
 
 const getAllCompletedTodos = `-- name: GetAllCompletedTodos :many
-SELECT id, task, status, created_at, updated_at FROM todos
-WHERE status = 'Completed'
+SELECT id, task, completed, created_at, updated_at
+FROM todos
+WHERE completed = true
+ORDER BY id
 `
 
 func (q *Queries) GetAllCompletedTodos(ctx context.Context) ([]Todo, error) {
@@ -91,7 +106,7 @@ func (q *Queries) GetAllCompletedTodos(ctx context.Context) ([]Todo, error) {
 		if err := rows.Scan(
 			&i.ID,
 			&i.Task,
-			&i.Status,
+			&i.Completed,
 			&i.CreatedAt,
 			&i.UpdatedAt,
 		); err != nil {
@@ -106,7 +121,9 @@ func (q *Queries) GetAllCompletedTodos(ctx context.Context) ([]Todo, error) {
 }
 
 const getAllTodos = `-- name: GetAllTodos :many
-SELECT id, task, status, created_at, updated_at FROM todos
+SELECT id, task, completed, created_at, updated_at
+FROM todos
+ORDER BY id
 `
 
 func (q *Queries) GetAllTodos(ctx context.Context) ([]Todo, error) {
@@ -121,7 +138,7 @@ func (q *Queries) GetAllTodos(ctx context.Context) ([]Todo, error) {
 		if err := rows.Scan(
 			&i.ID,
 			&i.Task,
-			&i.Status,
+			&i.Completed,
 			&i.CreatedAt,
 			&i.UpdatedAt,
 		); err != nil {
@@ -133,4 +150,15 @@ func (q *Queries) GetAllTodos(ctx context.Context) ([]Todo, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+const toggleCompleted = `-- name: ToggleCompleted :exec
+UPDATE todos
+SET completed = NOT completed, updated_at = now()
+WHERE id = $1
+`
+
+func (q *Queries) ToggleCompleted(ctx context.Context, id int32) error {
+	_, err := q.db.Exec(ctx, toggleCompleted, id)
+	return err
 }

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
         <link href="/assets/styles.css" rel="stylesheet"/>
+        <script src="/assets/htmx.min.js"></script>
         <script src="/assets/Sortable.min.js"></script>
         <title>Frontend Mentor | Todo app</title>
     </head>
@@ -14,66 +15,49 @@
         <h1>TODO</h1><span><img src="/assets/images/icon-sun.svg" alt="A moon icon signifying dark mode"/></span>
     </header>
     <main>
-        <div class="todo-list-container">
-            <span class="todo-input-container">
-                <input type="checkbox">
-                <input type="text" placeholder="Create new todo..."/>
-            </span>
-            <ul id="todo-list">
-                <li>
-                    <input type="checkbox"/>
-                    <p>A Todo</p>
-                </li>
-                <li>
-                    <input type="checkbox"/>
-                    <p>Another Todo</p>
-                </li>
-                <li>
-                    <input type="checkbox"/>
-                    <p>woohoo, A Todo</p>
-                </li>
-                <li>
-                    <input type="checkbox"/>
-                    <p>asdfasdf A Todo</p>
-                </li>
-                <li>
-                    <input type="checkbox"/>
-                    <p>A ffff Todo</p>
-                </li>
-                <li>
-                    <input type="checkbox"/>
-                    <p>A asdfadsfasd Todo</p>
-                </li>
-                <li>
-                    <span>[n] items left</span>
-                    <span class="button-group">
-                        <button type="button">All</button>
-                        <button type="button">Active</button>
-                        <button type="button">Completed</button>
-                    </span>
-                    <span><button type="button">Clear Completed</button></span>
-                </li>
-            </ul>
-            <span class="mobile-only button-group">
-                <button type="button">All</button>
-                <button type="button">Active</button>
-                <button type="button">Completed</button>
-            </span>
-        </div>
-        <div class="last-p">
-            <p>Drag and drop to reorder list</p>
-        </div>
-    </main>
-    <footer>
-        <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded
-            by
-            <a href="https://www.nicklatcham.dev" target="_blank">Nick Latcham</a>.
-        </p>
-    </footer>
+        <main>
+            <div class="todo-list-container">
+                <form hx-post="/" hx-target="ul#todo-list"
+                      hx-swap="afterbegin"
+                      hx-on::after-request="document.getElementById('todo-form').reset()"
+                      id="todo-form"
+                      class="todo-input-container">
+                    <input type="checkbox" name="completed" id="completed" value="true">
+                    <input type="text" name="task" id="task" placeholder="Create new todo..."/>
+                    <input type="submit" aria-hidden="true">
+                </form>
+                {{template "todo-list" .}}
+            </div>
+            <div class="last-p">
+                <p>Drag and drop to reorder list</p>
+            </div>
+        </main>
+        <footer>
+            <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+                Coded
+                by
+                <a href="https://www.nicklatcham.dev" target="_blank">Nick Latcham</a>.
+            </p>
+        </footer>
     </body>
     <script>
         const el = document.getElementById("todo-list");
-        new Sortable(el, {swap: true})
+        new Sortable(el);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.sort-button');
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    buttons.forEach(function (btn) {
+                        btn.classList.remove('current');
+                    });
+                    this.classList.add('current');
+                });
+            });
+        });
+    </script>
+    <script>
+        document.querySelector('#task-count').innerHTML = `${document.querySelectorAll('input[type="checkbox"]').length - 1} items left`;
     </script>
     </html>
 {{ end }}

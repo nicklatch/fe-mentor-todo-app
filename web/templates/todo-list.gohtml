@@ -1,0 +1,25 @@
+{{ define "todo-list" }}
+    <ul id="todo-list">
+        {{ range . }}
+            {{template "todo-item" . }}
+        {{ end }}
+        <li>
+            <span id="task-count">[n] items left</span>
+            <span class="button-group">
+                        <button hx-get="/all" hx-target="ul#todo-list" hx-swap="innerHTML" type="button">All</button>
+                        <button hx-get="/active" hx-target="ul#todo-list" hx-swap="innerHTML"
+                                type="button">Active</button>
+                        <button hx-get="/completed" hx-target="ul#todo-list" hx-swap="innerHTML"
+                                type="button">Completed</button>
+            </span>
+            <span><button type="button">Clear Completed</button></span>
+        </li>
+    </ul>
+    <script>
+        document.querySelectorAll('input[type="checkbox"]').forEach(ch => {
+            if (ch.value === 'true') {
+                ch.toggleAttribute("checked")
+            }
+        })
+    </script>
+{{ end }}

@@ -102,6 +102,11 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+input[type="submit"],
+input[type="reset"]{
+    display: none;
+}
+
 input[type="checkbox"] {
     display: grid;
     place-content: center;
@@ -111,6 +116,7 @@ input[type="checkbox"] {
     appearance: none;
     background-color: var(--dt-very-dark-desaturated-blue);
     outline: 1px solid var(--dt-very-darkerer-grayish-blue);
+    padding-right: 1rem;
 }
 
 input[type="checkbox"]:checked {
@@ -145,10 +151,25 @@ li {
 
 li:last-of-type {
     font-size: var(--font-size-fluid-0);
+    color: var(--dt-dark-grayish-blue);
     border-bottom: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+li p {
+    width: 100%;
+    text-align: left;
+}
+
+li button:hover svg {
+    filter: drop-shadow(0 0 0.25rem black);
+}
+
+li button:active svg {
+    filter: drop-shadow(0 0 0.10rem black);
+    transform: scale(0.98);
 }
 
 button {
@@ -156,17 +177,19 @@ button {
     cursor: pointer;
 }
 
+
 button:hover {
     color: var(--dt-light-grayish-blue-hover)
 }
 
-button:active {
+.button-group > button:active, .button-group > button:focus, .current {
     color: var(--bright-blue)
 }
 
 img {
     width: 100%;
     display: block;
+    object-fit: contain;
 }
 
 main div:last-of-type {
@@ -179,6 +202,7 @@ main div:last-of-type {
 
 main div:last-of-type > p {
     height: min-content;
+    color: var(--dt-dark-grayish-blue);
 }
 
 a {
@@ -192,6 +216,7 @@ a:visited {
 footer {
     text-align: center;
     font-size: 16px;
+    color: var(--dt-dark-grayish-blue);
 }
 
 .todo-list-container {
@@ -224,6 +249,10 @@ footer {
     box-shadow: black 0 20px 30px -10px;
     border-radius: var(--rounded);
     font-size: 18px;
+}
+
+.hidden {
+    display: none;
 }
 
 
