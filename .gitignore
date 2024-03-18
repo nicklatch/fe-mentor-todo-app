@@ -5,6 +5,7 @@
 *.so
 *.dylib
 cmd/web/assets/output.css
+sqlc.yaml
 
 # Test binary, built with "go test -c"
 *.test
