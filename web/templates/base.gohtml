@@ -5,63 +5,75 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
-              rel="stylesheet">
         <link href="/assets/styles.css" rel="stylesheet"/>
+        <script src="/assets/Sortable.min.js"></script>
         <title>Frontend Mentor | Todo app</title>
     </head>
     <body>
     <header>
-        <h1>TODO</h1><span><img src="/assets/images/icon-moon.svg" alt="A moon icon signifying dark mode"/></span>
+        <h1>TODO</h1><span><img src="/assets/images/icon-sun.svg" alt="A moon icon signifying dark mode"/></span>
     </header>
     <main>
-        <div class="table-card">
-            <span class="table-input">
-                <input class="cb" type="checkbox">
-                <input class="cont" type="text" placeholder="Create new todo..."/>
+        <div class="todo-list-container">
+            <span class="todo-input-container">
+                <input type="checkbox">
+                <input type="text" placeholder="Create new todo..."/>
             </span>
-            <table>
-                <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>Some Stuff</td>
-                </tr>
-                </tbody>
-            </table>
-            {{/*           All*/}}
-            {{/*        Active*/}}
-            {{/*        Completed*/}}
-
-            {{/*        Clear Completed*/}}
-
-            {{/*        Drag and drop to reorder list*/}}
-            {{/*        <!-- Add dynamic number --> items left*/}}
+            <ul id="todo-list">
+                <li>
+                    <input type="checkbox"/>
+                    <p>A Todo</p>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <p>Another Todo</p>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <p>woohoo, A Todo</p>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <p>asdfasdf A Todo</p>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <p>A ffff Todo</p>
+                </li>
+                <li>
+                    <input type="checkbox"/>
+                    <p>A asdfadsfasd Todo</p>
+                </li>
+                <li>
+                    <span>[n] items left</span>
+                    <span class="button-group">
+                        <button type="button">All</button>
+                        <button type="button">Active</button>
+                        <button type="button">Completed</button>
+                    </span>
+                    <span><button type="button">Clear Completed</button></span>
+                </li>
+            </ul>
+            <span class="mobile-only button-group">
+                <button type="button">All</button>
+                <button type="button">Active</button>
+                <button type="button">Completed</button>
+            </span>
+        </div>
+        <div class="last-p">
+            <p>Drag and drop to reorder list</p>
         </div>
     </main>
     <footer>
         <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded
             by
-            <a href="#">Nick Latcham</a>.
+            <a href="https://www.nicklatcham.dev" target="_blank">Nick Latcham</a>.
         </p>
     </footer>
     </body>
+    <script>
+        const el = document.getElementById("todo-list");
+        new Sortable(el, {swap: true})
+    </script>
     </html>
 {{ end }}
