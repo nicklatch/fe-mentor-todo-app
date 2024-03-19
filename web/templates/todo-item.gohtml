@@ -1,12 +1,12 @@
 {{ define "todo-item"}}
     <li data-id="{{ .ID }}">
-        <input
-                hx-put="/{{ .ID }}"
-                id="{{.ID}}"
-                name="{{.ID}}"
-                type="checkbox"
-                value="{{ .Completed}}"
-                onchange='this.value = this.value === "true" ? "false" : "true"'
+        <input aria-label="Completed"
+               hx-put="/{{ .ID }}"
+               id="{{.ID}}"
+               name="{{.ID}}"
+               type="checkbox"
+               value="{{ .Completed}}"
+               onchange='this.value = this.value === "true" ? "false" : "true"'
         >
         <p>{{ .Task }}</p>
         <button hx-delete="/{{ .ID }}" hx-trigger="click" hx-target="closest li" hx-swap="outerHTML" type="button">
