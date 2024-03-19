@@ -1,6 +1,6 @@
 {{ define "base" }}
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" >
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,36 +10,40 @@
         <script src="/assets/Sortable.min.js"></script>
         <title>Frontend Mentor | Todo app</title>
     </head>
-    <body>
+    <body class="dark-mode">
     <header>
-        <h1>TODO</h1><span><img src="/assets/images/icon-sun.svg" alt="A moon icon signifying dark mode"/></span>
+        <h1>TODO</h1>
+        <span>
+            <img id="sun" src="/assets/images/icon-sun.svg" alt="A moon icon signifying dark mode"
+                 class="theme-toggle"/>
+            <img id="moon" src="/assets/images/icon-moon.svg" alt="A sun icon signifying light mode"
+                 class="hidden theme-toggle"/>
+        </span>
     </header>
     <main>
-        <main>
-            <div class="todo-list-container">
-                <form hx-post="/" hx-target="ul#todo-list"
-                      hx-swap="afterbegin"
-                      hx-on::after-request="document.getElementById('todo-form').reset()"
-                      id="todo-form"
-                      class="todo-input-container">
-                    <input type="checkbox" name="completed" id="completed" value="true">
-                    <input type="text" name="task" id="task" placeholder="Create new todo..."/>
-                    <input type="submit" aria-hidden="true">
-                </form>
-                {{template "todo-list" .}}
-            </div>
-            <div class="last-p">
-                <p>Drag and drop to reorder list</p>
-            </div>
-        </main>
-        <footer>
-            <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-                Coded
-                by
-                <a href="https://www.nicklatcham.dev" target="_blank">Nick Latcham</a>.
-            </p>
-        </footer>
-    </body>
+        <div class="todo-list-container">
+            <form hx-post="/" hx-target="ul#todo-list"
+                  hx-swap="afterbegin"
+                  hx-on::after-request="document.getElementById('todo-form').reset()"
+                  id="todo-form"
+                  class="todo-input-container">
+                <input type="checkbox" name="completed" id="completed" value="true">
+                <input type="text" name="task" id="task" placeholder="Create new todo..."/>
+                <input type="submit" aria-hidden="true">
+            </form>
+            {{template "todo-list" .}}
+        </div>
+        <div class="last-p">
+            <p>Drag and drop to reorder list</p>
+        </div>
+    </main>
+    <footer>
+        <p>Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+            Coded
+            by
+            <a href="https://www.nicklatcham.dev" target="_blank">Nick Latcham</a>.
+        </p>
+    </footer>
     <script>
         const el = document.getElementById("todo-list");
         new Sortable(el);
@@ -57,7 +61,20 @@
         });
     </script>
     <script>
-        document.querySelector('#task-count').innerHTML = `${document.querySelectorAll('input[type="checkbox"]').length - 1} items left`;
+        let dt = document.querySelector('body')
+        let lm = document.querySelector('#sun');
+        let dm = document.querySelector('#moon');
+
+        function handleThemeClick() {
+            lm.classList.toggle("hidden")
+            dm.classList.toggle("hidden")
+            dt.classList.toggle("dark-mode")
+            dt.classList.toggle("light-mode")
+        }
+
+        lm.addEventListener("click", handleThemeClick)
+        dm.addEventListener("click", handleThemeClick)
     </script>
+    </body>
     </html>
 {{ end }}

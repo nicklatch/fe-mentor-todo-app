@@ -4,7 +4,7 @@
             {{template "todo-item" . }}
         {{ end }}
         <li>
-            <span id="task-count">[n] items left</span>
+            <span id="task-count"></span>
             <span class="button-group">
                         <button hx-get="/all" hx-target="ul#todo-list" hx-swap="innerHTML" type="button">All</button>
                         <button hx-get="/active" hx-target="ul#todo-list" hx-swap="innerHTML"
@@ -12,7 +12,8 @@
                         <button hx-get="/completed" hx-target="ul#todo-list" hx-swap="innerHTML"
                                 type="button">Completed</button>
             </span>
-            <span><button type="button">Clear Completed</button></span>
+            <span><button hx-delete="/many" hx-target="ul#todo-list" hx-swap="innerHTML"
+                          type="button">Clear Completed</button></span>
         </li>
     </ul>
     <script>
@@ -21,5 +22,8 @@
                 ch.toggleAttribute("checked")
             }
         })
+    </script>
+    <script>
+        document.querySelector('#task-count').innerHTML = `${document.querySelectorAll('input[type="checkbox"]').length - 1} items left`;
     </script>
 {{ end }}

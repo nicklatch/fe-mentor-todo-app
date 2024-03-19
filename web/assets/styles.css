@@ -5,9 +5,7 @@
 }
 
 :root {
-    font-family: "Josefin Sans", sans, system-ui;
-    font-optical-sizing: auto;
-    color: white;
+
 
     --bright-blue: hsl(220 98% 61%);
     --check-background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
@@ -38,6 +36,7 @@
 
     /* BG Images */
     --bg-image-dt-dark: url("/assets/images/bg-desktop-dark.jpg");
+    --bg-image-dt-light: url("/assets/images/bg-desktop-light.jpg");
 
     /* Random */
     --rounded: .25rem;
@@ -46,6 +45,10 @@
 html {
     margin: 0;
     padding: 0;
+    font-family: "Josefin Sans", sans, system-ui;
+    font-optical-sizing: auto;
+    color: white;
+
 }
 
 *, *::before, *::after {
@@ -53,8 +56,21 @@ html {
     box-sizing: border-box;
 }
 
-body {
+
+body:not(.light-mode) {
     background: var(--bg-image-dt-dark), var(--dt-very-dark-blue);
+    background-repeat: no-repeat, no-repeat;
+    background-size: contain;
+    height: 100vh;
+    max-width: 40vw;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 0;
+    margin: 0 auto;
+}
+
+body.light-mode {
+    background: var(--bg-image-dt-light), var(--lt-very-light-gray);
     background-repeat: no-repeat, no-repeat;
     background-size: contain;
     height: 100vh;
@@ -103,7 +119,7 @@ input[type="checkbox"] {
 }
 
 input[type="submit"],
-input[type="reset"]{
+input[type="reset"] {
     display: none;
 }
 
