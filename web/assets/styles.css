@@ -52,7 +52,6 @@ html {
 }
 
 *, *::before, *::after {
-    transition: 120ms all linear;
     box-sizing: border-box;
 }
 
@@ -305,5 +304,4 @@ footer {
     .mobile-only {
         display: flex;
     }
-
 }
